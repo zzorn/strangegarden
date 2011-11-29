@@ -46,13 +46,11 @@ def growStem(surface, pos, direction = tau / 4, twist = 0, length = 100, undulat
     i = 0
     x = pos[0]
     y = pos[1]
-    px = x
-    py = y
     stepLength = 1.0 * length / steps
     while i < steps:
-        rel = 1.0 * i / (steps)
+        rel = 1.0 * i / steps
 
-        if (random.random() < undulation):
+        if random.random() < undulation:
             twist = random.uniform(-twistAmount, twistAmount)
         
         direction += twist
@@ -69,16 +67,16 @@ def growStem(surface, pos, direction = tau / 4, twist = 0, length = 100, undulat
 
         i += 1
 
-    return ((x, y), direction, twist)
+    return (x, y), direction, twist
 
 
 def growBush(surface, pos, size = 50, sizeDelta = -14, direction = tau/4, twist = 0, branch = 5, branching = 0.9, twistAmount = 0.3, twistAmountDelta = 0.1, seed = -1):
-    if (seed >= 0):
+    if seed >= 0:
       random.seed(seed)
     else:
       random.seed()
 
-    if (branch <= 0):
+    if branch <= 0:
         drawBerry(surface, pos, size / 2)
     else:    
         twist += random.uniform(-twistAmount, twistAmount)
@@ -87,7 +85,7 @@ def growBush(surface, pos, size = 50, sizeDelta = -14, direction = tau/4, twist 
     
         growBush(surface, end[0], size + sizeDelta, sizeDelta, end[1], end[2], branch - 1, branching, twistAmount + twistAmountDelta, twistAmountDelta, seed = random.uniform(0, 1000))
         
-        if (random.random() < branching):
+        if random.random() < branching:
             growBush(surface, end[0], size + sizeDelta, sizeDelta, end[1], end[2], branch - 1, branching, twistAmount + twistAmountDelta, twistAmountDelta, seed = random.uniform(0, 1000))
  
  
